@@ -4,6 +4,6 @@ using namespace std;
 
 int main()
 {
-    Plane_DataTable test("DATA_Plane.csv");
+    Plane_DataTable test("./data/DATA_Plane.csv");
     return 0;
 }

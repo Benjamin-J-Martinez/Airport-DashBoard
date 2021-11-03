@@ -11,7 +11,7 @@ struct Plane
     string lastMaintA;
 };
 
-//HashMap that implements using a 
+//HashMap that implements using modulo hash and linear probing collision method.
 class Plane_DataTable
 {
     private:
@@ -21,6 +21,7 @@ class Plane_DataTable
     
     public:
         Plane_DataTable(string file);
+        int hash(int key);
         void insert(int key, string plane);
         void update(int key, string plane);
         void remove(int key);
