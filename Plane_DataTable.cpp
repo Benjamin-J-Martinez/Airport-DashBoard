@@ -21,7 +21,7 @@ Plane_DataTable::Plane_DataTable(string file)
 
     ifstream in(file); //creating input file stream from the filepath.
     int id; 
-    string line, strID, maker, model, lastMaint, lastMaintA;
+    string line, strID;
 
     getline(in, line); //ignoring the first line of the file.
     
