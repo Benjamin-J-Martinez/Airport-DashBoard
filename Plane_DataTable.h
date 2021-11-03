@@ -1,3 +1,6 @@
+#ifndef PLANE_DATATABLE_H
+#define PLANE_DATATABLE_H
+
 #include <string>
 #include <vector>
 using namespace std;
@@ -17,14 +20,17 @@ class Plane_DataTable
     private:
         int size;
         int table_size = 16;
-        vector<Plane> hashMap[16];
+        vector<Plane> hashMap = vector<Plane>(16);
+        string fileLocation;
     
     public:
         Plane_DataTable(string file);
         int hash(int key);
-        void insert(int key, string plane);
+        void insert(string plane);
         void update(int key, string plane);
         void remove(int key);
+        void print();
 
 };
 
+#endif
