@@ -18,15 +18,14 @@ struct Plane
 class Plane_DataTable
 {
     private:
-        int size;
-        int table_size = 16;
-        vector<Plane> hashMap = vector<Plane>(16);
+        static const int table_size = 23;
+        vector<Plane> hashMap = vector<Plane>(table_size);
         string fileLocation;
     
     public:
         Plane_DataTable(string file);
         int hash(int key);
-        void insert(string plane);
+        bool insert(string plane);
         void update(int key, string plane);
         void remove(int key);
         void print();
