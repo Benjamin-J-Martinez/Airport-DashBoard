@@ -26,11 +26,6 @@ FlightLeg_DataTable::FlightLeg_DataTable(string file)
     
     while(getline(in, line)) //while loop to get each row in the file to store the data.
         insert(line); 
-
-    for(auto it : hashMap)
-    {
-        cout << it.flno << " " << it.seq << endl;
-    }
 }
 
 /**

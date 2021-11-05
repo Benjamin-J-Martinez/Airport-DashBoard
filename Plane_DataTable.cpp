@@ -20,25 +20,12 @@ Plane_DataTable::Plane_DataTable(string file)
     }
 
     ifstream in(file); //creating input file stream from the filepath.
-    int id; 
-    string line, strID;
+    string line;
 
     getline(in, line); //ignoring the first line of the file.
     
     while(getline(in, line)) //while loop to get each row in the file to store the data.
-    {
-        stringstream ss(line); //creating string stream each line in the row.
-        getline(ss, strID, ','); //getting the contents of the string delimited by a comma.
-        id = stoi(strID); //parsing the string into an integer
-        int index = hash(id); //hashing the ID key to determine the index in which the Plane structure will be added too in the hashMap.
-
-        //setting all the plane structure data members from the contents in each row using getline delimited by a comma.
-        hashMap[index].id = id;
-        getline(ss, hashMap[index].maker, ',');
-        getline(ss, hashMap[index].model, ',');
-        getline(ss, hashMap[index].lastMaint, ',');
-        getline(ss, hashMap[index].lastMaintA, ',');  
-    } 
+        insert(line);
 }
 
 /**
