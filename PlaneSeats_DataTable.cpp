@@ -13,12 +13,6 @@ using namespace std;
 PlaneSeats_DataTable::PlaneSeats_DataTable(string file)
 {
     fileLocation = file; //storing the file path.
-    
-    for(auto &it : hashMap) //initializing all maker strings in the of pleane seats structures to "empty".
-    {
-        for(auto &chain : it)
-            chain.maker = "empty";
-    }
 
     ifstream in(file); //creating input file stream from the filepath. 
     string line;
@@ -79,7 +73,7 @@ bool PlaneSeats_DataTable::insert(string planeSeats)
     for(auto it : chain)
     {
         if((it.maker == tempPlaneSeats.maker) && (it.model == tempPlaneSeats.model) && (it.seatType == tempPlaneSeats.seatType))//If the maker, model, and seatType of the current index is equal to the PlaneSeats being added, return false.
-        return false;
+            return false;
     }
 
     chain.push_back(tempPlaneSeats);
