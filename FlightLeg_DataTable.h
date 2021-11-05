@@ -26,7 +26,7 @@ class FlightLeg_DataTable
     
     public:
         FlightLeg_DataTable(string file);
-        int hash(string key1, string key2);
+        int hash(string key);
         bool insert(string flightLeg);
 };
 

@@ -27,10 +27,6 @@ PlaneType_DataTable::PlaneType_DataTable(string file)
     while(getline(in, line)) //while loop to get each row in the file to store the data.
         insert(line); 
 
-    for(auto it : hashMap)
-    {
-        cout << it.maker << endl;
-    }
 }
 
 /**
@@ -83,7 +79,7 @@ bool PlaneType_DataTable::insert(string planeType)
             return true;
         }
         
-        if(hashMap[index].maker == tempPlaneType.maker) //If the id of the current index is equal to the id being added, return false.
+        if((hashMap[index].maker == tempPlaneType.maker) && (hashMap[index].model == tempPlaneType.model)) //If the id of the current index is equal to the id being added, return false.
             return false;
 
         i++;
