@@ -101,9 +101,9 @@ bool Plane_DataTable::remove(string plane)
     int index = hash(id); //hashing the id of the plane as the key to get the index.
     int bucketsProbed = 0; //variable to keep track how many of the buckets have been probed.
 
-    while((hashMap[index].id ==  -2) && (bucketsProbed < table_size)) //while loop to iterate until all the buckets have been probed.
+    while((hashMap[index].id !=  -1) && (bucketsProbed < table_size)) //while loop to iterate until all the buckets have been probed.
     {
-        if((hashMap[index].id != -1) && (hashMap[index].id == tempPlane.id)) //If the index is emtpy add the plane to the hashMap.
+        if((hashMap[index].id == tempPlane.id)) //If the index is emtpy add the plane to the hashMap.
         {
             Plane emptyPlane;
             emptyPlane.id = -2;

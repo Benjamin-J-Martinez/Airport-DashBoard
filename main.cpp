@@ -14,6 +14,11 @@ using namespace std;
 
 int main()
 {
-    Flight_DataTable test("./data/DATA_Flight.csv");
+    Plane_DataTable test("./data/DATA_Plane.csv");
+    test.insert("25,AIRBUS,A340,09/04/2021,SEA");
+    test.print();
+    cout << test.hash(24) << endl;
+    //cout << test.remove("24,AIRBUS,A340,09/04/2021,SEA") << endl;
+    test.print();
     return 0;
 }
