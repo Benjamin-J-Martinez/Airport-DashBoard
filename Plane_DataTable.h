@@ -26,8 +26,8 @@ class Plane_DataTable
         Plane_DataTable(string file);
         int hash(int key);
         bool insert(string plane);
-        void update(int key, string plane);
-        void remove(int key);
+        bool update(string plane);
+        bool remove(string plane);
         void print();
 
 };

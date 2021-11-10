@@ -82,6 +82,42 @@ bool Plane_DataTable::insert(string plane)
     return false;
 }
 
+bool Plane_DataTable::remove(string plane)
+{
+    Plane tempPlane; //temp plane structure
+    stringstream ss(plane); //string stream object with the string of the plane.
+    string strID;
+    int id;
+
+    //storing the contents of the parameter into the Plane structure.
+    getline(ss, strID, ',');
+    getline(ss, tempPlane.maker, ',');
+    getline(ss, tempPlane.model, ',');
+    getline(ss, tempPlane.lastMaint, ',');
+    getline(ss, tempPlane.lastMaintA, ',');
+    id = stoi(strID);
+    tempPlane.id = id;
+
+    int index = hash(id); //hashing the id of the plane as the key to get the index.
+    int bucketsProbed = 0; //variable to keep track how many of the buckets have been probed.
+
+    while((hashMap[index].id ==  -2) && (bucketsProbed < table_size)) //while loop to iterate until all the buckets have been probed.
+    {
+        if((hashMap[index].id != -1) && (hashMap[index].id == tempPlane.id)) //If the index is emtpy add the plane to the hashMap.
+        {
+            Plane emptyPlane;
+            emptyPlane.id = -2;
+            hashMap[index] = emptyPlane;
+            return true;
+        }
+
+        index = hash(index + 1); //incrementing the index and hashing it again.
+        bucketsProbed++; //incrementing the buckets probed variable.
+    }
+
+    return false;
+}
+
 void Plane_DataTable::print()
 {
     cout << "File Name: " << fileLocation << endl;
