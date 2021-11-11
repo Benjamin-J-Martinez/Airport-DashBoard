@@ -29,6 +29,8 @@ class Plane_DataTable
         bool update(string plane);
         bool remove(string plane);
         void print();
+        void write();
+        void test();
 
 };
 

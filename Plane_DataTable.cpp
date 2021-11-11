@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 /**
@@ -66,14 +67,55 @@ bool Plane_DataTable::insert(string plane)
 
     while(bucketsProbed < table_size) //while loop to iterate until all the buckets have been probed.
     {
-        if(hashMap[index].id == -1) //If the index is emtpy add the plane to the hashMap.
+        if((hashMap[index].id == -1) || (hashMap[index].id == -2)) //If the index is emtpy add the plane to the hashMap.
         {
             hashMap[index] = tempPlane;
             return true;
         }
         
-        if(hashMap[index].id = id) //If the id of the current index is equal to the id being added return false.
+        if(hashMap[index].id == id) //If the id of the current index is equal to the id being added return false.
             return false;
+
+        index = hash(index + 1); //incrementing the index and hashing it again.
+        bucketsProbed++; //incrementing the buckets probed variable.
+    }
+
+    return false;
+}
+
+
+/**
+ * Function:    Update
+ * Parameters:  A string value, plane, which contains the contents of the new Plane structure dilemited by commas. 
+ * Return:      N/A
+ * Description: This function updates a plane structures in the hashMap using a linear probing collision method.
+ */
+bool Plane_DataTable::update(string plane)
+{
+    Plane tempPlane; //temp plane structure
+    stringstream ss(plane); //string stream object with the string of the plane.
+    string strID;
+    int id;
+
+    //storing the contents of the parameter into the Plane structure.
+    getline(ss, strID, ',');
+    getline(ss, tempPlane.maker, ',');
+    getline(ss, tempPlane.model, ',');
+    getline(ss, tempPlane.lastMaint, ',');
+    getline(ss, tempPlane.lastMaintA, ',');
+    id = stoi(strID);
+    tempPlane.id = id;
+
+    int index = hash(id); //hashing the id of the plane as the key to get the index.
+    int bucketsProbed = 0; //variable to keep track how many of the buckets have been probed.
+
+    while((hashMap[index].id !=  -1) && (bucketsProbed < table_size)) //while loop to iterate until all the buckets have been probed.
+    {
+        if((hashMap[index].id == tempPlane.id)) //If the index is emtpy add the plane to the hashMap.
+        {
+            hashMap[index] = tempPlane;
+            return true;
+        }
 
         index = hash(index + 1); //incrementing the index and hashing it again.
         bucketsProbed++; //incrementing the buckets probed variable.
@@ -122,11 +164,23 @@ void Plane_DataTable::print()
 {
     cout << "File Name: " << fileLocation << endl;
     cout << "Insert Content: ['ID', 'Maker', 'Model', 'LastMaint', 'LastMaintA']" << endl;
+    cout << setw(3) << "ID" << setw(8) << "Maker" << setw(9) << "Model" << setw(11)  << "LastMaint" << setw(11) << "LastMaintA" << endl;
 
     for(const auto it : hashMap)
     {
-        cout << it.id << " " << it.maker << " " << it.model << " " << it.lastMaint << " " << it.lastMaintA << endl;
+        if((it.id != -1) && (it.id != -2))
+            cout << setw(3) << it.id << setw(8) << it.maker << setw(9) << it.model << setw(11)  << it.lastMaint << setw(11) << it.lastMaintA << endl;
     }
+}
+
+void Plane_DataTable::write()
+{
+    
+}
+
+void Plane_DataTable::test()
+{
+    cout << hashMap[2].id << endl;
 }
 
 
