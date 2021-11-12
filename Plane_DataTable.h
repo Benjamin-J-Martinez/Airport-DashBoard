@@ -21,6 +21,7 @@ class Plane_DataTable
         static const int table_size = 23;
         vector<Plane> hashMap = vector<Plane>(table_size);
         string fileLocation;
+        int numWrites;
     
     public:
         Plane_DataTable(string file);
@@ -30,8 +31,6 @@ class Plane_DataTable
         bool remove(string plane);
         void print();
         void write();
-        void test();
-
 };
 
 #endif

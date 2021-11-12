@@ -24,5 +24,6 @@ int main()
     cout << "Removed: " << test.remove("56,AIRBUS,A340,09/04/2021,SEA") << endl;
     cout << "Updated: " << test.update("3,AIRBUS,A340,09/04/2021,SEA") << endl;
     test.print();
+    test.write();
     return 0;
 }

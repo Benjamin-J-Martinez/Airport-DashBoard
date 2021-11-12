@@ -14,6 +14,7 @@ using namespace std;
 Plane_DataTable::Plane_DataTable(string file)
 {
     fileLocation = file; //storing the file path.
+    numWrites = 0; //setting the number of writes of the object to 0.
     
     for(auto &it : hashMap) //initializing all ids of plane strucuters to -1 which is equivalent to empty;
     {
@@ -27,6 +28,8 @@ Plane_DataTable::Plane_DataTable(string file)
     
     while(getline(in, line)) //while loop to get each row in the file to store the data.
         insert(line);
+
+    in.close();
 }
 
 /**
@@ -87,7 +90,7 @@ bool Plane_DataTable::insert(string plane)
 /**
  * Function:    Update
  * Parameters:  A string value, plane, which contains the contents of the new Plane structure dilemited by commas. 
- * Return:      N/A
+ * Return:      True if the Plane strucuture was update false otherwise.
  * Description: This function updates a plane structures in the hashMap using a linear probing collision method.
  */
 bool Plane_DataTable::update(string plane)
@@ -124,6 +127,12 @@ bool Plane_DataTable::update(string plane)
     return false;
 }
 
+/**
+ * Function:    Remove
+ * Parameters:  A string value, plane, which contains the contents of the Plane structure dilemited by commas. 
+ * Return:      True if the plane was removed false otherwise.
+ * Description: This function removes a plane structure in the hashMap using a linear probing collision method.
+ */
 bool Plane_DataTable::remove(string plane)
 {
     Plane tempPlane; //temp plane structure
@@ -145,7 +154,7 @@ bool Plane_DataTable::remove(string plane)
 
     while((hashMap[index].id !=  -1) && (bucketsProbed < table_size)) //while loop to iterate until all the buckets have been probed.
     {
-        if((hashMap[index].id == tempPlane.id)) //If the index is emtpy add the plane to the hashMap.
+        if((hashMap[index].id == tempPlane.id)) //If the planes are equal to eachother remove the plane from the hashMap.
         {
             Plane emptyPlane;
             emptyPlane.id = -2;
@@ -160,6 +169,12 @@ bool Plane_DataTable::remove(string plane)
     return false;
 }
 
+/**
+ * Function:    Print
+ * Parameters:  N/A
+ * Return:      N/A
+ * Description: This function prints the contents of the plane.
+ */
 void Plane_DataTable::print()
 {
     cout << "File Name: " << fileLocation << endl;
@@ -173,15 +188,32 @@ void Plane_DataTable::print()
     }
 }
 
+/**
+ * Function:    Write
+ * Parameters:  N/A
+ * Return:      N/A
+ * Description: This function writes the contents of the hashMap to a new file in the data folder.
+ */
 void Plane_DataTable::write()
 {
-    
+    numWrites++; //incremement number of writes.
+    string newFile = fileLocation; //creating a string which will be the location of the new file.
+    string version = "_v" + to_string(numWrites); //creating a string of the version to be added to the newFile.
+    newFile.insert(newFile.size()-4, version); //creating the new file location.
+
+    ofstream out(newFile); //oppening the new file location.
+
+    //writing the contents of the hashMap to the new file dilemited by commas.
+    out << "ID" << ',' << "Maker" << ',' << "Model" << ',' << "LastMaint" << ',' << "LastMaintA" << endl;
+    for(auto it : hashMap)
+    {
+        if((it.id != -1) && (it.id != -2))
+            out << it.id << ',' << it.maker << ',' << it.model << ',' << it.lastMaint << ',' << it.lastMaintA << endl; 
+    }
+
+    out.close(); //closing the output stream.
 }
 
-void Plane_DataTable::test()
-{
-    cout << hashMap[2].id << endl;
-}
 
 
 
